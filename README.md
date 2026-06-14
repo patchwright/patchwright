@@ -19,6 +19,7 @@ Each rule comes from an actual bug I found and fixed upstream — see the PRs be
 - [derek73/python-nameparser #164](https://github.com/derek73/python-nameparser/pull/164) — `split(' ')` vs `split()` left a stray space and `['']` instead of `[]`.
 - [savoirfairelinux/num2words #661](https://github.com/savoirfairelinux/num2words/pull/661) — Mongolian ordinal `IndexError` on zero (unguarded `[-2]` index).
 - [skorokithakis/shortuuid #115](https://github.com/skorokithakis/shortuuid/pull/115) — `string_to_int` ignored its documented `alphabet_index`, using the wrong radix.
+- [mahmoud/boltons #403](https://github.com/mahmoud/boltons/pull/403) — `bytes2human` didn't roll over at exact powers of 1024 (`1024` → `'1024B'` instead of `'1K'`); off-by-one `<=` boundary.
 
 ## Contact
 
