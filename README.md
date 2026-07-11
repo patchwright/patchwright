@@ -1,14 +1,39 @@
 # Hi, I'm patchwright
 
-I find small, real, provable bugs in open-source Python and fix them. Every fix
-ships with a regression test that fails on the old code, so the bug proves
-itself.
+I find small, real, provable bugs in open-source code, fix them upstream, and
+distill the fix patterns into narrow precision tools. Every fix ships with a
+regression test that fails on the old code, so the bug proves itself.
 
-## Tooling
+## The tools
+
+Each tool is narrowly scoped, evidence-driven (every rule pinned to a real
+upstream fix), and optimized for **trust over coverage** — low false positives,
+no feature creep. The point is a small set of tools you can rely on, not a large
+set you have to triage.
 
 🔧 **[wildlint](https://github.com/patchwright/wildlint)** · `pip install wildlint`
-Static checks distilled from real upstream bugs that off-the-shelf linters miss.
-Each rule comes from an actual bug I found and fixed upstream — see the merges below.
+Static checks for bug classes off-the-shelf linters (ruff/flake8/pylint) miss,
+each distilled from a real upstream fix. Cross-language (Python/JS/TS/Go/Rust).
+
+🔍 **[mcp-lint](https://github.com/patchwright/mcp-lint)**
+Static linter for MCP servers and configs; every rule pinned to a real CVE with
+a biting fixture.
+
+🧱 **[agent-wall](https://github.com/patchwright/agent-wall)**
+Lean-verified deterministic policy-gate for AI agents — a hard no on unsafe
+tool-calls. Not an LLM-judge.
+
+> `aibug-gate` was folded into `wildlint` — the two converged on the same
+> provenance-pinned corpus, so two overlapping precision linters contradicted
+> the selectivity the corpus is built on. Fewer, sharper tools.
+
+## The philosophy, plainly
+
+Narrow scope. High precision. Low false positives. Evidence-driven. Refuses
+feature creep. Optimizes for trust, not coverage. One mediocre tool would
+undermine the credibility of the rest — so each tool has to independently
+justify its existence, and a rule that can't be made low-noise is documented as
+*not shipped* rather than added.
 
 ## Merged upstream
 
