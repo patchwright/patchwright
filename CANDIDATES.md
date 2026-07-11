@@ -37,9 +37,9 @@ considered but not shipped").
 ## Current candidates
 
 ### From the aibug-gate fold → wildlint (see wildlint#15)
-Each rests on ~1 upstream instance — below the recur-before-build threshold for
-*default* tier. Honest tiering: ship as `pedantic` (as aibug-gate already had
-most of them), or gather more evidence before default.
+AB007 + AB008 are **resolved** — already covered by wildlint's WP001 rollover property
+test (not ported; static ports refused — see entries). Three remain to migrate
+(AB002, AB005, AB006), each ~1 instance → `pedantic` or needs-more-evidence.
 
 - **`str.split(' ')` vs `str.split()`** — stray empty tokens.
   - Instances: derek73/python-nameparser#164 (merged). [1/3]
@@ -53,14 +53,12 @@ most of them), or gather more evidence before default.
   - Instances: skorokithakis/shortuuid#115 (merged). [1/3]
   - ΔU: high. Precision: feasible but narrow.
   - Verdict: **needs-more-evidence for default; pedantic meanwhile** → wildlint.
-- **log-derived exponent + rounded mantissa, no carry-guard** ("1000.0 kB").
-  - Instances: python-humanize/humanize#329 (merged). [1/3]
-  - ΔU: medium (display). Precision: feasible (humanizer call shape).
-  - Verdict: **build (pedantic)** → wildlint.
-- **magnitude-binning loop breaks on `<=` at boundary** (1024 → "1024B").
-  - Instances: mahmoud/boltons#403 (merged). [1/3]
-  - ΔU: medium (display). Precision: feasible.
-  - Verdict: **build (pedantic)** → wildlint.
+- **log-derived exponent + rounded mantissa, no carry-guard** ("1000.0 kB") — ✅ RESOLVED (not ported).
+  - Instance: python-humanize/humanize#329 (merged).
+  - Verdict: **covered by wildlint WP001** (`find_rollover` property test — `humanize` is its default target; humanize#329 now cited). Static port REFUSED: wildlint uses the property test precisely because a static rule for this class flags mountains of correct code; porting the static version would reintroduce that noise.
+- **magnitude-binning loop breaks on `<=` at boundary** (1024 → "1024B") — ✅ RESOLVED (not ported).
+  - Instance: mahmoud/boltons#403 (merged).
+  - Verdict: **already covered by wildlint WP001** (boltons#403 was already a cited instance). Static port refused, same reason.
 
 ### Needs more evidence
 *(add patterns as noticed during the fleet; promote to build when instances hit ≥3)*
